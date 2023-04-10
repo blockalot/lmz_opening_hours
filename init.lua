@@ -12,33 +12,33 @@ opening_hours = {}
 
 local opening_hours_default = {
 	version = 2,
-	day0_start_hour = 8,
+	day0_start_hour = 0,
 	day0_start_minute = 0,
-	day0_end_hour = 21,
+	day0_end_hour = 24,
 	day0_end_minute = 0,
-	day1_start_hour = 14,
+	day1_start_hour = 0,
 	day1_start_minute = 0,
-	day1_end_hour = 21,
+	day1_end_hour = 24,
 	day1_end_minute = 0,
-	day2_start_hour = 14,
+	day2_start_hour = 0,
 	day2_start_minute = 0,
-	day2_end_hour = 21,
+	day2_end_hour = 24,
 	day2_end_minute = 0,
-	day3_start_hour = 14,
+	day3_start_hour = 0,
 	day3_start_minute = 0,
-	day3_end_hour = 21,
+	day3_end_hour = 24,
 	day3_end_minute = 0,
-	day4_start_hour = 14,
+	day4_start_hour = 0,
 	day4_start_minute = 0,
-	day4_end_hour = 21,
+	day4_end_hour = 24,
 	day4_end_minute = 0,
-	day5_start_hour = 14,
+	day5_start_hour = 0,
 	day5_start_minute = 0,
-	day5_end_hour = 21,
+	day5_end_hour = 24,
 	day5_end_minute = 0,
-	day6_start_hour = 8,
+	day6_start_hour = 0,
 	day6_start_minute = 0,
-	day6_end_hour = 21,
+	day6_end_hour = 24,
 	day6_end_minute = 0,
 	warn_offset = 15,
 	warn_interval = 5
@@ -167,7 +167,7 @@ local function tick(dtime)
 	elseif minutes_remaining <= 0 then
 		for _, player in pairs(minetest.get_connected_players()) do
 			local name = player:get_player_name()
-			if not minetest.check_player_privs(name, {server = true}) then
+			if not minetest.check_player_privs(name, {teacher = true}) then
 				minetest.kick_player(name, S("The server is closing!"))
 			end
 		end
@@ -175,7 +175,7 @@ local function tick(dtime)
 end
 
 local function on_join(name)
-	if minetest.check_player_privs(name, {server = true}) then return end
+	if minetest.check_player_privs(name, {teacher = true}) then return end
 	local today = opening_today()
  	local d = get_date()
 	local start_time = today.start_hour * 60 + today.start_minute
